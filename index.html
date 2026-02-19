@@ -1,251 +1,64 @@
 <!DOCTYPE html>
-<html lang="pt-MZ">
+<html lang="pt">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-
-    <!-- Google Preconnect -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- Google Fonts Completo -->
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=DM+Sans&family=Fira+Code&family=Geist&family=IBM+Plex+Sans&family=Inter&family=JetBrains+Mono&family=Libre+Baskerville&family=Lora&family=Merriweather&family=Montserrat&family=Open+Sans&family=Outfit&family=Oxanium&family=Playfair+Display&family=Plus+Jakarta+Sans&family=Poppins:wght@300;400;600;700;800;900&family=Roboto&family=Space+Grotesk&display=swap" rel="stylesheet">
-
-    <title>Finalizar Pagamento | Checkout Seguro</title>
-
-    <style>
-        :root {
-            --bg-deep: #0f172a;
-            --primary-grad: linear-gradient(45deg, #ff0000, #7c3aed);
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-deep);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 450px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .header { text-align: center; margin-bottom: 2rem; }
-        .header h1 { font-size: 1.75rem; font-weight: 700; }
-        .header p { color: #94a3b8; font-size: 0.9rem; }
-
-        .price-card {
-            background: rgba(15, 23, 42, 0.6);
-            border-radius: 16px;
-            padding: 1.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .price-value {
-            font-size: 2.25rem;
-            font-weight: 800;
-            color: #3b82f6;
-        }
-
-        .input-group { margin-bottom: 1.25rem; }
-
-        .input-group input {
-            width: 100%;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 0.75rem 1rem;
-            color: #fff;
-            font-size: 1rem;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #fff;
-            cursor: pointer;
-            margin-top: 1rem;
-            background: var(--primary-grad);
-        }
-
-        .method-btn {
-            background: #fff;
-            color: #0f172a;
-            border-radius: 16px;
-            padding: 1rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            cursor: pointer;
-            font-weight: 700;
-        }
-
-        .stage { display: none; }
-        .stage.active { display: block; }
-
-        .loader { text-align: center; }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal {
-            background: #1e293b;
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        .copy-box {
-            background: #0f172a;
-            padding: 1rem;
-            border-radius: 12px;
-            margin: 1rem 0;
-            cursor: pointer;
-            border: 1px dashed #3b82f6;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <title>Finalizar Pagamento</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div id="root">
+<div class="container">
 
-    <div class="container">
+  <div class="header">
+    <div class="badge">CHECKOUT SEGURO</div>
+    <h1>Pagamento – Acesso Informativo</h1>
+    <p class="subtitle">Confirmação manual via WhatsApp</p>
+  </div>
 
-        <div id="stage1" class="stage active">
-            <div class="header">
-                <h1>Finalizar Pagamento</h1>
-                <p>Acesso Liberado Após Confirmação</p>
-            </div>
+  <div class="card">
 
-            <div class="price-card">
-                <div class="price-value">244 MZN</div>
-            </div>
-
-            <div class="input-group">
-                <input type="text" id="userName" placeholder="Nome Completo">
-            </div>
-
-            <div class="input-group">
-                <input type="tel" id="userPhone" placeholder="Telefone" maxlength="9">
-            </div>
-
-            <button class="btn" onclick="goToMethods()">PROSSEGUIR</button>
-        </div>
-
-        <div id="stage2" class="stage">
-            <div class="header">
-                <h1>Método de Pagamento</h1>
-            </div>
-
-            <div class="method-btn" onclick="openPayment('mpesa')">Pagar com M-Pesa</div>
-            <div class="method-btn" onclick="openPayment('emola')">Pagar com e-Mola</div>
-        </div>
-
-        <div id="stage3" class="stage loader">
-            <h2>A verificar pagamento...</h2>
-        </div>
-
+    <div class="valor">
+      <span>VALOR TOTAL</span>
+      <strong>244 MZN</strong>
     </div>
+
+    <div class="metodos">
+      <div class="metodo active" onclick="selecionarMetodo('mpesa')" id="mpesaBtn">
+        M-Pesa
+      </div>
+      <div class="metodo" onclick="selecionarMetodo('emola')" id="emolaBtn">
+        e-Mola
+      </div>
+    </div>
+
+    <div class="numero-box">
+      <span>Número para envio</span>
+      <strong id="numero">867145774</strong>
+    </div>
+
+    <button class="copy-btn" onclick="copiarNumero()">
+      Copiar Número
+    </button>
+
+    <div class="circle-timer" id="circleTimer">
+      <span id="tempo">15</span>
+    </div>
+
+    <div class="instrucao" id="instrucao"></div>
+
+    <button class="confirm-btn" id="confirmarBtn" onclick="irWhatsapp()">
+      Já efetuei o pagamento. Pretendo confirmar.
+    </button>
+
+    <div class="secure">
+      Transação manual. A confirmação será realizada diretamente via WhatsApp.
+    </div>
+
+  </div>
 
 </div>
 
-<div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-        <h2 id="modalTitle"></h2>
-        <div class="copy-box" onclick="copyNumber()">
-            <div id="agentNumber"></div>
-        </div>
-        <button class="btn" onclick="confirmPayment()">JÁ PAGUEI</button>
-    </div>
-</div>
-
-<script>
-const WHATSAPP_NUMBER = "+25884598917";
-const PRICE = "244 MZN";
-
-const PAYMENT_DETAILS = {
-    mpesa: { number: "844459897", title: "Pagar com M-Pesa" },
-    emola: { number: "867145774", title: "Pagar com e-Mola" }
-};
-
-let userData = {};
-
-function goToMethods() {
-    const name = document.getElementById('userName').value.trim();
-    const phone = document.getElementById('userPhone').value.trim();
-
-    if(!name || phone.length < 9) {
-        alert("Preencha corretamente.");
-        return;
-    }
-
-    userData = { name, phone };
-
-    document.getElementById('stage1').classList.remove('active');
-    document.getElementById('stage2').classList.add('active');
-}
-
-function openPayment(method) {
-    const data = PAYMENT_DETAILS[method];
-    document.getElementById('modalTitle').innerText = data.title;
-    document.getElementById('agentNumber').innerText = data.number;
-    document.getElementById('modalOverlay').style.display = "flex";
-}
-
-function copyNumber() {
-    const num = document.getElementById('agentNumber').innerText;
-    navigator.clipboard.writeText(num);
-}
-
-function confirmPayment() {
-    document.getElementById('modalOverlay').style.display = "none";
-    document.getElementById('stage2').classList.remove('active');
-    document.getElementById('stage3').classList.add('active');
-
-    setTimeout(() => {
-        const msg = `Olá, já efetuei o pagamento de ${PRICE}. Nome: ${userData.name}`;
-        const url = `https://wa.me/${WHATSAPP_NUMBER.replace('+','')}?text=${encodeURIComponent(msg)}`;
-        window.location.href = url;
-    }, 3000);
-}
-</script>
-
-<script type="module" src="/src/main.tsx"></script>
-
+<script src="script.js"></script>
 </body>
 </html>
