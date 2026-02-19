@@ -1,0 +1,11 @@
+/* 
+   Standalone Stylesheet for Checkout 
+   All styles are also embedded in standalone.html 
+*/
+:root {
+    --bg-deep: #0f172a;
+    --primary-grad: linear-gradient(45deg, #ff0000, #7c3aed);
+    --glass: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+}
+/* ... Rest of CSS logic is in the HTML for "single file" request compliance ... */
