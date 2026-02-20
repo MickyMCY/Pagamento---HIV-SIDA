@@ -1,61 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>Finalizar Pagamento</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout Seguro</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
+<div class="background-glow"></div>
 
-  <div class="header">
-    <div class="badge">CHECKOUT SEGURO</div>
-    <h1>Pagamento – Acesso Informativo</h1>
-    <p class="subtitle">Confirmação manual via WhatsApp</p>
-  </div>
+<div class="app">
 
+<div class="progress">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- ETAPA 1 -->
+<section class="step active" id="step1">
   <div class="card">
+    <h1>Finalizar Pedido</h1>
+    <p class="desc">Preencha os dados para continuar.</p>
 
-    <div class="valor">
-      <span>VALOR TOTAL</span>
-      <strong>244 MZN</strong>
+    <div class="input-group">
+      <label>Nome completo</label>
+      <input type="text" id="nome" placeholder="Digite seu nome">
     </div>
 
-    <div class="metodos">
-      <div class="metodo active" onclick="selecionarMetodo('mpesa')" id="mpesaBtn">
-        M-Pesa
+    <div class="info-box">
+      <p>Pagamento seguro e confirmação manual.</p>
+    </div>
+
+    <button class="primary-btn" onclick="nextStep(2)">
+      Continuar
+    </button>
+  </div>
+</section>
+
+<!-- ETAPA 2 -->
+<section class="step" id="step2">
+  <div class="card">
+    <h1>Escolha o Método</h1>
+
+    <div class="payment-options">
+      <div class="option" onclick="selectMetodo('mpesa')">
+        <h3>M-Pesa</h3>
+        <p>Pagamento via carteira móvel</p>
       </div>
-      <div class="metodo" onclick="selecionarMetodo('emola')" id="emolaBtn">
-        e-Mola
+
+      <div class="option" onclick="selectMetodo('emola')">
+        <h3>e-Mola</h3>
+        <p>Pagamento via carteira móvel</p>
       </div>
     </div>
+
+    <button class="secondary-btn" onclick="nextStep(1)">
+      Voltar
+    </button>
+  </div>
+</section>
+
+<!-- ETAPA 3 -->
+<section class="step" id="step3">
+  <div class="card">
+    <h1>Envie 244 MZN</h1>
 
     <div class="numero-box">
       <span>Número para envio</span>
       <strong id="numero">867145774</strong>
     </div>
 
-    <button class="copy-btn" onclick="copiarNumero()">
+    <button class="primary-btn" onclick="copiarNumero()">
       Copiar Número
     </button>
 
-    <div class="circle-timer" id="circleTimer">
-      <span id="tempo">15</span>
-    </div>
+    <p class="ussd" id="ussdInfo"></p>
 
-    <div class="instrucao" id="instrucao"></div>
-
-    <button class="confirm-btn" id="confirmarBtn" onclick="irWhatsapp()">
-      Já efetuei o pagamento. Pretendo confirmar.
+    <button id="confirmBtn" class="confirm-btn" onclick="nextStep(4)">
+      Já efetuei o pagamento
     </button>
-
-    <div class="secure">
-      Transação manual. A confirmação será realizada diretamente via WhatsApp.
-    </div>
-
   </div>
+</section>
+
+<!-- ETAPA 4 -->
+<section class="step" id="step4">
+  <div class="card center">
+    <h1>A processar pedido...</h1>
+    <div class="loader"></div>
+    <p>Estamos a preparar a confirmação.</p>
+  </div>
+</section>
 
 </div>
 
