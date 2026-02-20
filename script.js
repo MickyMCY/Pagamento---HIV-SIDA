@@ -1,66 +1,58 @@
-let metodoSelecionado = "mpesa";
-let tempoTotal = 15;
-let intervalo;
+const screens = document.querySelectorAll(".screen");
+const btnStep1 = document.getElementById("btnStep1");
+const mpesaBtn = document.getElementById("mpesaBtn");
+const emolaBtn = document.getElementById("emolaBtn");
+const copyBtn = document.getElementById("copyBtn");
+const confirmBtn = document.getElementById("confirmBtn");
+const metodoTitulo = document.getElementById("metodoTitulo");
+const numeroPagamento = document.getElementById("numeroPagamento");
+const toast = document.getElementById("toast");
 
-function selecionarMetodo(tipo){
-  metodoSelecionado = tipo;
+let numeroAtual = "";
 
-  document.getElementById("mpesaBtn").classList.remove("active");
-  document.getElementById("emolaBtn").classList.remove("active");
-
-  if(tipo === "mpesa"){
-    document.getElementById("mpesaBtn").classList.add("active");
-  } else {
-    document.getElementById("emolaBtn").classList.add("active");
-  }
+function goTo(step){
+screens.forEach(s => s.classList.remove("active"));
+document.getElementById("screen"+step).classList.add("active");
 }
 
-function copiarNumero(){
-  navigator.clipboard.writeText("867145774");
+btnStep1.addEventListener("click",()=>{
+const nome = document.getElementById("nome").value;
+const tel = document.getElementById("telefone").value;
 
-  document.querySelector(".copy-btn").innerText = "Número Copiado ✓";
-
-  setTimeout(()=>{
-    if(metodoSelecionado === "mpesa"){
-      document.getElementById("instrucao").innerHTML =
-        "No seu telemóvel marque <strong>*150#</strong> e siga as instruções.";
-    } else {
-      document.getElementById("instrucao").innerHTML =
-        "No seu telemóvel marque <strong>*898#</strong> e siga as instruções.";
-    }
-  },3000);
-
-  iniciarContador();
+if(!nome || !tel){
+alert("Preencha todos os campos.");
+return;
 }
 
-function iniciarContador(){
-  let tempo = tempoTotal;
-  let circle = document.getElementById("circleTimer");
-  let tempoTexto = document.getElementById("tempo");
-  let confirmar = document.getElementById("confirmarBtn");
+goTo(2);
+});
 
-  intervalo = setInterval(()=>{
-    tempo--;
-    let grau = (tempo/tempoTotal)*360;
-    circle.style.background =
-      `conic-gradient(#a855f7 ${grau}deg, rgba(255,255,255,0.1) ${grau}deg)`;
+mpesaBtn.addEventListener("click",()=>{
+numeroAtual = "844459897";
+metodoTitulo.innerText = "Pagamento via MPesa";
+numeroPagamento.innerText = numeroAtual;
+goTo(3);
+});
 
-    tempoTexto.innerText = tempo;
+emolaBtn.addEventListener("click",()=>{
+numeroAtual = "867145774";
+metodoTitulo.innerText = "Pagamento via e-Mola";
+numeroPagamento.innerText = numeroAtual;
+goTo(3);
+});
 
-    if(tempo <= 0){
-      clearInterval(intervalo);
-      circle.style.display = "none";
-      confirmar.style.display = "block";
-    }
+copyBtn.addEventListener("click",()=>{
+navigator.clipboard.writeText(numeroAtual);
+toast.style.display="block";
+setTimeout(()=>toast.style.display="none",2000);
+});
 
-  },1000);
-}
+confirmBtn.addEventListener("click",()=>{
+window.location.href="https://wa.me/25884598917";
+});
 
-function irWhatsapp(){
-  let mensagem = encodeURIComponent(
-    "Olá, já efetuei o pagamento de 244 MZN e pretendo confirmar."
-  );
-
-  window.location.href =
-    "https://wa.me/258844598917?text=" + mensagem;
-}
+document.querySelectorAll(".back").forEach(el=>{
+el.addEventListener("click",()=>{
+goTo(el.dataset.back);
+});
+});
