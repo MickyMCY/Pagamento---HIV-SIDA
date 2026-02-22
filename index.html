@@ -3,62 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Checkout Seguro</title>
+<title>Checkout</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="background"></div>
-
 <div class="app">
 
-    <!-- ETAPA 1 -->
-    <section class="screen active" id="screen1">
-        <h1>Finalizar Pedido</h1>
-        <p class="subtitle">Preencha os dados para continuar</p>
+<section class="screen active" id="screen1">
+<h1>Finalizar Pagamento</h1>
+<p class="subtitle">Preencha os dados</p>
 
-        <div class="card">
-            <div class="price">Total: <span>244 MZN</span></div>
+<div class="card">
+<div class="price">Total <span>244 MZN</span></div>
 
-            <input type="text" id="nome" placeholder="Nome completo">
-            <input type="tel" id="telefone" placeholder="84 / 85 / 86 / 87...">
+<input type="text" id="nome" placeholder="Nome completo">
+<input type="tel" id="telefone" placeholder="84 / 85 / 86 / 87...">
 
-            <button class="btn primary" id="btnStep1">Prosseguir</button>
-            <span class="back hidden"></span>
-        </div>
-    </section>
+<div class="error" id="erroTelefone"></div>
 
-    <!-- ETAPA 2 -->
-    <section class="screen" id="screen2">
-        <h1>Escolher Método</h1>
-        <p class="subtitle">Selecione uma opção</p>
+<button class="btn primary" id="btnStep1">Prosseguir</button>
+</div>
+</section>
 
-        <div class="card">
-            <button class="btn mpesa" id="mpesaBtn">MPesa</button>
-            <button class="btn emola" id="emolaBtn">e-Mola</button>
+<section class="screen" id="screen2">
+<h1>Escolher Método</h1>
 
-            <span class="back" data-back="1">voltar</span>
-        </div>
-    </section>
+<div class="card">
+<button class="btn mpesa" id="mpesaBtn">MPesa</button>
+<button class="btn emola" id="emolaBtn">e-Mola</button>
+<span class="back" data-back="1">voltar</span>
+</div>
+</section>
 
-    <!-- ETAPA 3 -->
-    <section class="screen" id="screen3">
-        <h1>Dados para Pagamento</h1>
-        <p class="subtitle" id="metodoTitulo"></p>
+<section class="screen" id="screen3">
+<h1>Dados de Pagamento</h1>
+<p class="ussd" id="ussdInfo"></p>
 
-        <div class="card">
-            <div class="number" id="numeroPagamento"></div>
-            <button class="btn copy" id="copyBtn">Copiar número</button>
-            <button class="btn confirm" id="confirmBtn">Enviar comprovativo</button>
+<div class="card">
+<div class="number" id="numeroPagamento"></div>
 
-            <span class="back" data-back="2">voltar</span>
-        </div>
-    </section>
+<button class="btn copy" id="copyBtn">Copiar número</button>
+
+<button class="btn confirm hidden" id="confirmBtn">
+Receber Receita
+</button>
+
+<span class="back" data-back="2">voltar</span>
+</div>
+</section>
 
 </div>
 
-<div class="toast" id="toast">Número copiado</div>
+<div class="toast" id="toast">copiado</div>
 
 <script src="script.js"></script>
 </body>
