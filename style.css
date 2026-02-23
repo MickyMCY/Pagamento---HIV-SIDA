@@ -1,177 +1,249 @@
+/* RESET */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+-webkit-tap-highlight-color: transparent;
 }
 
 html,body{
 height:100%;
+font-family: 'Segoe UI', sans-serif;
 background:#0f172a;
-overflow:hidden;
+overflow-x:hidden;
 touch-action:pan-y;
 }
 
-/* FUNDO MÉDICO */
-.background{
-position:fixed;
-width:100%;
-height:100%;
-z-index:0;
+/* FUNDO ESTILO CLÍNICO */
+body{
 background:
-radial-gradient(circle at 20% 20%, rgba(255,0,0,.15), transparent 40%),
-radial-gradient(circle at 80% 80%, rgba(124,58,237,.15), transparent 40%);
-animation:bgMove 8s infinite alternate;
+linear-gradient(rgba(15,23,42,.88),rgba(15,23,42,.92)),
+url("https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=1200") center/cover no-repeat fixed;
 }
 
-@keyframes bgMove{
-from{transform:translateY(-20px)}
-to{transform:translateY(20px)}
+/* CONTADOR TOPO */
+.top-counter{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:#b91c1c;
+color:#fff;
+text-align:center;
+padding:8px;
+font-size:13px;
+font-weight:600;
+z-index:999;
+animation:pulse 1.5s infinite;
 }
 
-/* APP */
-.app{
-position:relative;
-z-index:2;
-height:100%;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:15px;
+@keyframes pulse{
+0%{opacity:1;}
+50%{opacity:.6;}
+100%{opacity:1;}
 }
 
 /* TELAS */
 .screen{
-position:absolute;
-width:100%;
-max-width:420px;
-opacity:0;
-pointer-events:none;
-transform:translateX(100%);
-transition:.4s ease;
+display:none;
+min-height:100vh;
+padding:80px 20px 40px;
+animation:fadeIn .4s ease;
 }
 
 .screen.active{
-opacity:1;
-pointer-events:auto;
-transform:translateX(0);
+display:block;
 }
 
-h1{
-color:white;
-text-align:center;
-margin-bottom:5px;
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
 }
 
-.subtitle{
-color:#94a3b8;
-text-align:center;
-margin-bottom:20px;
-font-size:14px;
-}
-
+/* CARD CENTRAL */
 .card{
-background:rgba(255,255,255,.05);
-backdrop-filter:blur(15px);
-border-radius:20px;
+background:rgba(15,23,42,.75);
+backdrop-filter:blur(10px);
 padding:25px;
-box-shadow:0 20px 50px rgba(0,0,0,.6);
+border-radius:16px;
+box-shadow:0 0 25px rgba(0,0,0,.6);
+max-width:420px;
+margin:0 auto;
+color:#fff;
 }
 
-.price{
+/* TITULOS */
+h1,h2{
+margin-bottom:15px;
 text-align:center;
-margin-bottom:20px;
+}
+
+p{
+font-size:14px;
+margin-bottom:15px;
 color:#cbd5e1;
 }
 
-.price span{
-font-size:24px;
-font-weight:700;
-color:#a855f7;
-}
-
+/* INPUT */
 input{
 width:100%;
 padding:14px;
-margin-bottom:10px;
-border-radius:12px;
-border:none;
+border-radius:10px;
+border:1px solid #334155;
 background:#1e293b;
-color:white;
-outline:none;
+color:#fff;
+margin-bottom:8px;
+font-size:15px;
 }
 
-.error{
+input:focus{
+outline:none;
+border:1px solid #3b82f6;
+}
+
+/* ERRO */
+.erro{
 color:#ef4444;
 font-size:12px;
-min-height:16px;
 margin-bottom:10px;
 }
 
-.btn{
+/* BOTÕES */
+button{
 width:100%;
-padding:14px;
+padding:15px;
 border:none;
-border-radius:30px;
+border-radius:12px;
+font-size:15px;
 font-weight:600;
 cursor:pointer;
-transition:.2s;
-margin-bottom:10px;
+transition:.3s;
+margin-top:10px;
 }
 
-.btn:hover{
-filter:brightness(1.1);
+.btn-primary{
+background:#2563eb;
+color:#fff;
+animation:attention 2s infinite;
 }
 
-.btn:active{
+.btn-primary:hover{
+transform:scale(1.03);
+}
+
+.btn-secondary{
+background:#1e40af;
+color:#fff;
+}
+
+.btn-success{
+background:#16a34a;
+color:#fff;
+}
+
+.btn-warning{
+background:#f59e0b;
+color:#fff;
+}
+
+button:active{
 transform:scale(.95);
 }
 
-.primary{
-background:linear-gradient(45deg,#ff0000,#7c3aed);
-color:white;
+@keyframes attention{
+0%{box-shadow:0 0 0 0 rgba(59,130,246,.7);}
+70%{box-shadow:0 0 0 10px rgba(59,130,246,0);}
+100%{box-shadow:0 0 0 0 rgba(59,130,246,0);}
 }
 
-.mpesa{background:#e60000;color:white;}
-.emola{background:#ff7a00;color:white;}
-.copy{background:#22c55e;color:white;}
-.confirm{background:#3b82f6;color:white;}
-
-.hidden{display:none;}
-
+/* BOTÃO VOLTAR */
 .back{
-display:block;
-text-align:center;
-font-size:12px;
+margin-top:8px;
+font-size:11px;
 color:#94a3b8;
+text-align:center;
 cursor:pointer;
 }
 
-.number{
+/* NÚMERO PAGAMENTO */
+.numero-box{
+background:#1e293b;
+padding:12px;
+border-radius:10px;
+margin-top:10px;
 text-align:center;
-font-size:18px;
-color:white;
-margin-bottom:15px;
+font-weight:600;
+font-size:15px;
+color:#38bdf8;
 }
 
+/* INSTRUÇÃO USSD */
 .ussd{
-text-align:center;
-color:#facc15;
-margin-bottom:10px;
+margin-top:12px;
 font-size:13px;
-min-height:18px;
+color:#facc15;
+text-align:center;
 }
 
-.toast{
+/* LOADER */
+.loader{
+border:4px solid rgba(255,255,255,0.2);
+border-top:4px solid #3b82f6;
+border-radius:50%;
+width:40px;
+height:40px;
+margin:0 auto;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+/* BOTÃO CONFIRMAR ESCONDIDO */
+.hidden{
+display:none;
+}
+
+/* TOAST COPIADO */
+#toast{
 position:fixed;
 bottom:20px;
 left:50%;
 transform:translateX(-50%);
-background:#22c55e;
-color:white;
-padding:8px 20px;
-border-radius:30px;
+background:#16a34a;
+color:#fff;
+padding:10px 18px;
+border-radius:8px;
+font-size:13px;
 display:none;
-font-size:12px;
 z-index:999;
+}
+
+/* NOTIFICAÇÕES FLUTUANTES */
+.notification{
+position:fixed;
+bottom:20px;
+left:20px;
+background:rgba(15,23,42,.9);
+color:#fff;
+padding:12px 15px;
+border-radius:10px;
+font-size:12px;
+box-shadow:0 0 10px rgba(0,0,0,.5);
+animation:slideIn .5s ease;
+max-width:240px;
+}
+
+@keyframes slideIn{
+from{transform:translateY(20px);opacity:0;}
+to{transform:translateY(0);opacity:1;}
+}
+
+/* RESPONSIVO */
+@media(max-width:420px){
+.card{
+padding:20px;
+}
 }
