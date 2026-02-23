@@ -1,103 +1,98 @@
-document.addEventListener("DOMContentLoaded", function(){
+let selectedMethod = "";
+const whatsappNumber = "25884598917";
 
-const screens = document.querySelectorAll(".screen");
-const btnStep1 = document.getElementById("btnStep1");
-const mpesaBtn = document.getElementById("mpesaBtn");
-const emolaBtn = document.getElementById("emolaBtn");
-const copyBtn = document.getElementById("copyBtn");
+const step1 = document.getElementById("step1");
+const step2 = document.getElementById("step2");
+const step3 = document.getElementById("step3");
+
+const nameInput = document.getElementById("name");
+const phoneInput = document.getElementById("phone");
+
+document.getElementById("goStep2").onclick = function(){
+
+let valid = true;
+
+if(nameInput.value.trim() === ""){
+document.getElementById("nameError").innerText = "Nome obrigatório";
+valid = false;
+}else{
+document.getElementById("nameError").innerText = "";
+}
+
+if(phoneInput.value.length !== 9){
+document.getElementById("phoneError").innerText = "Número deve ter 9 dígitos";
+valid = false;
+}else{
+document.getElementById("phoneError").innerText = "";
+}
+
+if(!valid) return;
+
+step1.classList.remove("active");
+step2.classList.add("active");
+}
+
+document.getElementById("mpesaBtn").onclick = function(){
+selectedMethod = "M-Pesa";
+openPayment();
+}
+
+document.getElementById("emolaBtn").onclick = function(){
+selectedMethod = "e-Mola";
+openPayment();
+}
+
+function openPayment(){
+step2.classList.remove("active");
+step3.classList.add("active");
+
+let info = "";
+let manual = "";
+
+if(selectedMethod === "M-Pesa"){
+info = "844598917 - CELESTE NHACHOTA";
+manual = "Digite *150# no seu telefone e efetue o pagamento manualmente.";
+}else{
+info = "844598917 - CELESTE NHACHOTA";
+manual = "Digite *898# no seu telefone e efetue o pagamento manualmente.";
+}
+
+document.getElementById("paymentInfo").innerText = info;
+document.getElementById("manualInfo").innerText = manual;
+
+startWaiting();
+}
+
+document.getElementById("copyBtn").onclick = function(){
+
+const text = document.getElementById("paymentInfo").innerText.split(" - ")[0];
+navigator.clipboard.writeText(text);
+
+this.innerText = "Copiado ✓";
+this.style.background = "#16a34a";
+}
+
+function startWaiting(){
+
 const confirmBtn = document.getElementById("confirmBtn");
-const numeroPagamento = document.getElementById("numeroPagamento");
-const ussdInfo = document.getElementById("ussdInfo");
-const erroTelefone = document.getElementById("erroTelefone");
-const toast = document.getElementById("toast");
-
-let numeroAtual = "";
-let temporizadorAtivo = false;
-
-function goTo(step){
-screens.forEach(s => s.classList.remove("active"));
-document.getElementById("screen"+step).classList.add("active");
-}
-
-btnStep1.addEventListener("click", function(){
-
-const telefone = document.getElementById("telefone").value.replace(/\D/g,'');
-
-if(telefone.length !== 9){
-erroTelefone.innerText="Número deve ter 9 dígitos.";
-return;
-}
-
-goTo(2);
-});
-
-mpesaBtn.addEventListener("click", function(){
-numeroAtual="844598917";
-numeroPagamento.innerText="844598917 - CELESTE NHACHOTA";
-ussdInfo.innerText="Marque *150# no seu telefone, efectue o pagamento e volte aqui.";
-goTo(3);
-iniciarProcessoManual();
-});
-
-emolaBtn.addEventListener("click", function(){
-numeroAtual="867145774";
-numeroPagamento.innerText="867145774 - CELESTE NHACHOTA";
-ussdInfo.innerText="Marque *898# no seu telefone, efectue o pagamento e volte aqui.";
-goTo(3);
-iniciarProcessoManual();
-});
-
-copyBtn.addEventListener("click", function(){
-
-navigator.clipboard.writeText(numeroAtual);
-
-copyBtn.innerText="copiado";
-copyBtn.style.transform="scale(.85)";
-copyBtn.disabled=true;
-
-toast.style.display="block";
-setTimeout(()=>{toast.style.display="none";},1500);
-
-});
-
-function iniciarProcessoManual(){
-
-if(temporizadorAtivo) return;
-temporizadorAtivo = true;
-
-confirmBtn.classList.add("hidden");
-
-let processamento = document.createElement("div");
-processamento.id="processamentoManual";
-processamento.innerHTML=`
-<div style="text-align:center;margin-top:15px;">
-<div class="loader"></div>
-<p style="color:#94a3b8;font-size:13px;margin-top:10px;">
-Aguardando pagamento manual...
-<br>Após pagar, volte aqui.
-</p>
-</div>
-`;
-
-numeroPagamento.parentNode.appendChild(processamento);
 
 setTimeout(()=>{
-document.getElementById("processamentoManual").remove();
-confirmBtn.classList.remove("hidden");
-confirmBtn.style.animation="fadeIn .4s ease";
+confirmBtn.style.display = "block";
 },15000);
 
+confirmBtn.onclick = function(){
+
+let message = `Olá, já efetuei o pagamento de 244 MZN. Quero receber a receita.`;
+let url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+window.location.href = url;
+}
 }
 
-confirmBtn.addEventListener("click", function(){
-window.location.href="https://wa.me/25884598917";
-});
+function goBack(step){
+step1.classList.remove("active");
+step2.classList.remove("active");
+step3.classList.remove("active");
 
-document.querySelectorAll(".back").forEach(el=>{
-el.addEventListener("click", function(){
-temporizadorAtivo=false;
-goTo(el.dataset.back);
-});
-});
-
-});
+if(step === 1) step1.classList.add("active");
+if(step === 2) step2.classList.add("active");
+}
