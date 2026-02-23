@@ -1,98 +1,104 @@
-let selectedMethod = "";
-const whatsappNumber = "25884598917";
+let currentStep = 1;
+let vagas = 18;
 
-const step1 = document.getElementById("step1");
-const step2 = document.getElementById("step2");
-const step3 = document.getElementById("step3");
+const nome = document.getElementById("nome");
+const telefone = document.getElementById("telefone");
 
-const nameInput = document.getElementById("name");
-const phoneInput = document.getElementById("phone");
+function irPara(step){
+document.querySelector(".step.active").classList.remove("active");
+document.getElementById("step"+step).classList.add("active");
+currentStep = step;
+}
 
-document.getElementById("goStep2").onclick = function(){
+function voltar(step){
+irPara(step);
+}
 
-let valid = true;
+document.getElementById("btnStep1").addEventListener("click",()=>{
+let valido = true;
 
-if(nameInput.value.trim() === ""){
-document.getElementById("nameError").innerText = "Nome obrigatório";
-valid = false;
+if(nome.value.trim()===""){
+document.getElementById("nomeErro").innerText="Informe o nome";
+valido=false;
 }else{
-document.getElementById("nameError").innerText = "";
+document.getElementById("nomeErro").innerText="";
 }
 
-if(phoneInput.value.length !== 9){
-document.getElementById("phoneError").innerText = "Número deve ter 9 dígitos";
-valid = false;
+if(!/^[0-9]{9}$/.test(telefone.value)){
+document.getElementById("telErro").innerText="Número deve ter 9 dígitos";
+valido=false;
+navigator.vibrate(200);
 }else{
-document.getElementById("phoneError").innerText = "";
+document.getElementById("telErro").innerText="";
 }
 
-if(!valid) return;
-
-step1.classList.remove("active");
-step2.classList.add("active");
+if(valido){
+irPara(2);
 }
+});
 
-document.getElementById("mpesaBtn").onclick = function(){
-selectedMethod = "M-Pesa";
-openPayment();
-}
+let totalTime=600;
+let timerEl=document.getElementById("timer");
+let progressEl=document.getElementById("progress");
 
-document.getElementById("emolaBtn").onclick = function(){
-selectedMethod = "e-Mola";
-openPayment();
-}
+let countdown=setInterval(()=>{
+let min=Math.floor(totalTime/60);
+let sec=totalTime%60;
+timerEl.innerText=`${min}:${sec<10?"0":""}${sec}`;
+progressEl.style.width=((600-totalTime)/600)*100+"%";
+totalTime--;
+if(totalTime<0)clearInterval(countdown);
+},1000);
 
-function openPayment(){
-step2.classList.remove("active");
-step3.classList.add("active");
+document.querySelectorAll(".payment-btn").forEach(btn=>{
+btn.addEventListener("click",()=>{
+let type=btn.dataset.type;
+let info=document.getElementById("paymentInfo");
 
-let info = "";
-let manual = "";
-
-if(selectedMethod === "M-Pesa"){
-info = "844598917 - CELESTE NHACHOTA";
-manual = "Digite *150# no seu telefone e efetue o pagamento manualmente.";
+if(type==="mpesa"){
+info.innerHTML="<p>844598917 - CELESTE NHACHOTA</p><p>Digite *150# para pagar</p>";
 }else{
-info = "844598917 - CELESTE NHACHOTA";
-manual = "Digite *898# no seu telefone e efetue o pagamento manualmente.";
+info.innerHTML="<p>867145774 - CELESTE NHACHOTA</p><p>Digite *898# para pagar</p>";
 }
 
-document.getElementById("paymentInfo").innerText = info;
-document.getElementById("manualInfo").innerText = manual;
+irPara(3);
+});
+});
 
-startWaiting();
-}
-
-document.getElementById("copyBtn").onclick = function(){
-
-const text = document.getElementById("paymentInfo").innerText.split(" - ")[0];
-navigator.clipboard.writeText(text);
-
-this.innerText = "Copiado ✓";
-this.style.background = "#16a34a";
-}
-
-function startWaiting(){
-
-const confirmBtn = document.getElementById("confirmBtn");
+document.getElementById("copiarBtn").addEventListener("click",()=>{
+let texto=document.getElementById("paymentInfo").innerText;
+navigator.clipboard.writeText(texto);
+mostrarToast("Copiado com sucesso");
+document.getElementById("processingInfo").classList.remove("hidden");
 
 setTimeout(()=>{
-confirmBtn.style.display = "block";
+document.getElementById("confirmBtn").classList.remove("hidden");
 },15000);
+});
 
-confirmBtn.onclick = function(){
-
-let message = `Olá, já efetuei o pagamento de 244 MZN. Quero receber a receita.`;
-let url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-window.location.href = url;
+document.getElementById("confirmBtn").addEventListener("click",()=>{
+let verify=document.getElementById("verifyProgress");
+let width=0;
+let interval=setInterval(()=>{
+width+=5;
+verify.style.width=width+"%";
+if(width>=100){
+clearInterval(interval);
+window.location.href="https://wa.me/25884598917";
 }
+},150);
+});
+
+function mostrarToast(msg){
+let toast=document.getElementById("toast");
+toast.innerText=msg;
+toast.style.display="block";
+setTimeout(()=>{toast.style.display="none"},2000);
 }
 
-function goBack(step){
-step1.classList.remove("active");
-step2.classList.remove("active");
-step3.classList.remove("active");
-
-if(step === 1) step1.classList.add("active");
-if(step === 2) step2.classList.add("active");
+setInterval(()=>{
+if(vagas>6){
+vagas--;
+document.getElementById("vagas").innerText=vagas;
 }
+},15000);
