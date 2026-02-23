@@ -3,62 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Checkout</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>Finalizar Pagamento</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="background"></div>
 
-<div class="app">
+<div class="container">
 
-<section class="screen active" id="screen1">
-<h1>Finalizar Pagamento</h1>
-<p class="subtitle">Preencha os dados</p>
+    <!-- ETAPA 1 -->
+    <section class="screen active" id="step1">
+        <h1>Finalizar Pagamento</h1>
+        <p class="sub">Acesso liberado após confirmação manual</p>
+        <div class="price">Valor Total: 244 MZN</div>
 
-<div class="card">
-<div class="price">Total <span>244 MZN</span></div>
+        <div class="form-group">
+            <label>Nome completo</label>
+            <input type="text" id="name">
+            <small class="error" id="nameError"></small>
+        </div>
 
-<input type="text" id="nome" placeholder="Nome completo">
-<input type="tel" id="telefone" placeholder="84 / 85 / 86 / 87...">
+        <div class="form-group">
+            <label>Número de telefone</label>
+            <input type="tel" id="phone" maxlength="9">
+            <small class="error" id="phoneError"></small>
+        </div>
 
-<div class="error" id="erroTelefone"></div>
+        <button class="primary" id="goStep2">PROSSEGUIR</button>
+    </section>
 
-<button class="btn primary" id="btnStep1" type="button">Prosseguir</button>
+    <!-- ETAPA 2 -->
+    <section class="screen" id="step2">
+        <h2>Escolha o Método de Pagamento</h2>
+
+        <button class="mpesa" id="mpesaBtn">Pagar com M-Pesa</button>
+        <button class="emola" id="emolaBtn">Pagar com e-Mola</button>
+
+        <span class="back" onclick="goBack(1)">voltar</span>
+    </section>
+
+    <!-- ETAPA 3 -->
+    <section class="screen" id="step3">
+        <h2>Dados para Transferência</h2>
+
+        <div class="payment-box">
+            <p id="paymentInfo"></p>
+            <button class="copy" id="copyBtn">Copiar Número</button>
+        </div>
+
+        <div class="manual-info" id="manualInfo"></div>
+
+        <div class="waiting" id="waiting">
+            Aguarde 15 segundos após efetuar o pagamento.
+            <div class="spinner"></div>
+        </div>
+
+        <button class="confirm" id="confirmBtn">Receber Receita</button>
+
+        <span class="back" onclick="goBack(2)">voltar</span>
+    </section>
+
 </div>
-</section>
-
-<section class="screen" id="screen2">
-<h1>Escolher Método</h1>
-
-<div class="card">
-<button class="btn mpesa" id="mpesaBtn" type="button">MPesa</button>
-<button class="btn emola" id="emolaBtn" type="button">e-Mola</button>
-<span class="back" data-back="1">voltar</span>
-</div>
-</section>
-
-<section class="screen" id="screen3">
-<h1>Dados de Pagamento</h1>
-<p class="ussd" id="ussdInfo"></p>
-
-<div class="card">
-<div class="number" id="numeroPagamento"></div>
-
-<button class="btn copy" id="copyBtn" type="button">Copiar número</button>
-
-<button class="btn confirm hidden" id="confirmBtn" type="button">
-Receber Receita
-</button>
-
-<span class="back" data-back="2">voltar</span>
-</div>
-</section>
-
-</div>
-
-<div class="toast" id="toast">copiado</div>
 
 <script src="script.js"></script>
 </body>
