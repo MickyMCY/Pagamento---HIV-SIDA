@@ -3,24 +3,31 @@ margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Poppins',sans-serif;
+-webkit-tap-highlight-color: transparent;
 }
 
-body{
+html,body{
 background:#0f172a;
 color:white;
 overflow-x:hidden;
 min-height:100vh;
+touch-action:pan-y;
+}
+
+body{
 display:flex;
 align-items:center;
 justify-content:center;
 }
 
+/* FUNDO ANIMADO */
 .bg-animation{
 position:fixed;
 width:100%;
 height:100%;
-background:radial-gradient(circle at 20% 30%, rgba(124,58,237,0.2), transparent),
-radial-gradient(circle at 80% 70%, rgba(255,0,0,0.2), transparent);
+background:
+radial-gradient(circle at 20% 30%, rgba(255,0,0,0.15), transparent),
+radial-gradient(circle at 80% 70%, rgba(124,58,237,0.2), transparent);
 animation:moveBg 10s infinite alternate;
 z-index:-1;
 }
@@ -30,6 +37,7 @@ z-index:-1;
 100%{transform:translateY(-40px)}
 }
 
+/* CONTAINER */
 .container{
 width:95%;
 max-width:420px;
@@ -40,6 +48,7 @@ padding:25px;
 box-shadow:0 20px 50px rgba(0,0,0,0.6);
 }
 
+/* ETAPAS */
 .step{
 display:none;
 animation:fade 0.4s ease;
@@ -57,37 +66,65 @@ to{opacity:1;transform:translateX(0)}
 h1,h2{
 font-weight:700;
 margin-bottom:10px;
+text-align:center;
 }
 
 .subtitle{
 opacity:0.8;
 margin-bottom:20px;
+text-align:center;
+}
+
+/* CAIXA PREÇO */
+.price-box{
+background:rgba(255,255,255,0.08);
+padding:15px;
+border-radius:15px;
+margin-bottom:20px;
+text-align:center;
+}
+
+.price-label{
+font-size:12px;
+opacity:0.7;
+display:block;
+margin-bottom:5px;
 }
 
 .price{
-font-size:24px;
+font-size:28px;
 font-weight:700;
-margin-bottom:20px;
 color:#22c55e;
 }
 
+/* FORM */
 .form-group{
 margin-bottom:15px;
 }
 
 input{
 width:100%;
-padding:12px;
-border-radius:10px;
-border:none;
+padding:14px;
+border-radius:12px;
+border:1px solid #334155;
+background:#1e293b;
+color:white;
 outline:none;
+font-size:15px;
+transition:.2s;
+}
+
+input:focus{
+border:1px solid #3b82f6;
 }
 
 .error{
 color:#ff4d4d;
 font-size:12px;
+margin-top:4px;
 }
 
+/* BOTÃO PRINCIPAL */
 .primary-btn{
 width:100%;
 padding:14px;
@@ -100,25 +137,55 @@ cursor:pointer;
 transition:0.2s;
 }
 
+.primary-btn:hover{
+transform:scale(1.02);
+}
+
 .primary-btn:active{
 transform:scale(0.96);
 }
 
+/* BOTÕES PAGAMENTO - CORES RESTAURADAS */
+
 .payment-btn{
 width:100%;
-padding:15px;
+padding:16px;
 border:none;
 border-radius:20px;
 margin-bottom:15px;
 cursor:pointer;
 font-weight:600;
+font-size:15px;
+transition:0.3s;
+color:white;
 }
 
-.mpesa-btn{background:#e60000}
-.emola-btn{background:#ff7a00}
+/* M-PESA vermelho forte */
+.mpesa-btn{
+background:#e60000;
+box-shadow:0 0 15px rgba(230,0,0,0.5);
+}
 
+.mpesa-btn:hover{
+transform:scale(1.03);
+box-shadow:0 0 20px rgba(230,0,0,0.8);
+}
+
+/* E-MOLA laranja forte */
+.emola-btn{
+background:#ff7a00;
+box-shadow:0 0 15px rgba(255,122,0,0.5);
+}
+
+.emola-btn:hover{
+transform:scale(1.03);
+box-shadow:0 0 20px rgba(255,122,0,0.8);
+}
+
+/* CONTADOR */
 .countdown{
 margin-bottom:20px;
+text-align:center;
 }
 
 .progress-bar{
@@ -134,37 +201,55 @@ margin-top:5px;
 height:100%;
 width:0%;
 background:#22c55e;
+transition:0.3s;
 }
 
+/* BOTÃO COPIAR */
 .copy-btn{
 width:100%;
-padding:12px;
+padding:14px;
 background:#22c55e;
 border:none;
 border-radius:20px;
 margin-top:10px;
 cursor:pointer;
+font-weight:600;
+transition:0.2s;
 }
 
+.copy-btn:active{
+transform:scale(.95);
+}
+
+/* BOTÃO CONFIRMAR */
 .confirm-btn{
 width:100%;
-padding:12px;
+padding:14px;
 background:#3b82f6;
 border:none;
 border-radius:20px;
 margin-top:15px;
 cursor:pointer;
+font-weight:600;
+transition:0.2s;
 }
 
-.hidden{display:none}
+.confirm-btn:active{
+transform:scale(.95);
+}
 
+.hidden{
+display:none;
+}
+
+/* LOADER */
 .loader{
 width:40px;
 height:40px;
 border:4px solid rgba(255,255,255,0.2);
 border-top:4px solid white;
 border-radius:50%;
-margin:10px auto;
+margin:15px auto;
 animation:spin 1s linear infinite;
 }
 
@@ -172,33 +257,41 @@ animation:spin 1s linear infinite;
 100%{transform:rotate(360deg)}
 }
 
+/* BARRA VERIFICAÇÃO */
 .verify-bar{
 height:6px;
 background:#333;
 border-radius:10px;
 overflow:hidden;
+margin-top:10px;
 }
 
 #verifyProgress{
 height:100%;
 width:0%;
 background:#3b82f6;
+transition:0.3s;
 }
 
+/* ESCASSEZ */
 .scarcity{
 margin-top:15px;
 font-size:14px;
 opacity:0.8;
+text-align:center;
 }
 
+/* VOLTAR */
 .back{
 display:block;
 margin-top:10px;
 text-align:center;
 opacity:0.6;
 cursor:pointer;
+font-size:12px;
 }
 
+/* TOAST */
 #toast{
 position:fixed;
 bottom:20px;
@@ -208,4 +301,12 @@ background:#22c55e;
 padding:10px 20px;
 border-radius:20px;
 display:none;
+font-size:13px;
+}
+
+/* RESPONSIVO */
+@media(max-width:420px){
+.container{
+padding:20px;
+}
 }
