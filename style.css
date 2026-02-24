@@ -333,7 +333,7 @@ from{opacity:0;transform:translateX(20px);}
 to{opacity:1;transform:translateX(0);}
 }
 
-/* ===== NOVO COMPONENTE DE NOTIFICAÇÕES MOÇAMBICANAS ===== */
+/* ===== COMPONENTE DE NOTIFICAÇÕES MOÇAMBICANAS ===== */
 .notificacoes-container {
     position: fixed;
     bottom: 20px;
@@ -353,9 +353,6 @@ to{opacity:1;transform:translateX(0);}
 .notificacoes-header {
     padding: 10px 12px;
     background: rgba(0,0,0,0.4);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
@@ -367,31 +364,18 @@ to{opacity:1;transform:translateX(0);}
     color: #22c55e;
 }
 
-.notificacoes-ao-vivo {
-    background: #ef4444;
-    padding: 3px 8px;
-    border-radius: 20px;
-    font-size: 9px;
-    font-weight: 700;
-    animation: pulse 2s infinite;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
 .notificacoes-mensagens {
     max-height: 250px;
     overflow-y: auto;
     padding: 8px;
 }
 
-/* Ajuste para comentários mais compactos */
 .notificacao-item {
     background: rgba(255,255,255,0.05);
     border-radius: 8px;
     padding: 8px 10px;
     margin-bottom: 6px;
     border: 1px solid rgba(255,255,255,0.05);
-    transition: all 0.3s ease;
     animation: fadeInUp 0.5s ease-out;
 }
 
@@ -415,7 +399,6 @@ to{opacity:1;transform:translateX(0);}
     font-size: 11px;
     line-height: 1.3;
     margin-bottom: 4px;
-    word-wrap: break-word;
     color: #e2e8f0;
 }
 
@@ -433,23 +416,7 @@ to{opacity:1;transform:translateX(0);}
     font-size: 8px;
 }
 
-/* Animação de saída */
-.notificacao-item.saindo {
-    animation: fadeOut 0.5s ease-out forwards;
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-}
-
-/* Scrollbar personalizada */
+/* Scrollbar */
 .notificacoes-mensagens::-webkit-scrollbar {
     width: 3px;
 }
@@ -481,7 +448,7 @@ to{opacity:1;transform:translateX(0);}
     }
 }
 
-/* ===== NOVAS ANIMAÇÕES ===== */
+/* ===== ANIMAÇÕES ===== */
 @keyframes slideInRight {
     from {
         transform: translateX(100%);
@@ -504,20 +471,12 @@ to{opacity:1;transform:translateX(0);}
     }
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-/* Animação para as vagas críticas */
 @keyframes pulseVagas {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); text-shadow: 0 0 10px #ef4444; }
     100% { transform: scale(1); }
 }
 
-/* Estilo para o elemento de vagas */
 #vagas {
     transition: all 0.3s ease;
     font-weight: 700;
