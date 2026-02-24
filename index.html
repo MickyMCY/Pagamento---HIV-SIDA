@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 <title>Checkout Manual</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
@@ -15,22 +17,32 @@
 
 <!-- ETAPA 1 -->
 <section id="step1" class="step active">
-<h1>Finalizar Pagamento</h1>
-<p class="subtitle">Acesso liberado após confirmação manual</p>
 
+<div class="secure-badge">
+🔒 CHECKOUT SEGURO
+</div>
+
+<h1>Finalizar Pagamento</h1>
+<p class="subtitle">Acesso liberado imediatamente após confirmação</p>
+
+<div class="price-box">
+<span class="price-label">VALOR TOTAL A PAGAR</span>
 <div class="price">244 MZN</div>
+</div>
 
 <div class="form-group">
-<input type="text" id="nome" placeholder="Nome completo">
+<input type="text" id="nome" placeholder="Seu nome">
 <small class="error" id="nomeErro"></small>
 </div>
 
 <div class="form-group">
-<input type="tel" id="telefone" placeholder="Número (9 dígitos)">
+<input type="tel" id="telefone" placeholder="84/85/86/87…">
 <small class="error" id="telErro"></small>
 </div>
 
-<button id="btnStep1" class="primary-btn">PROSSEGUIR</button>
+<button id="btnStep1" class="primary-btn">
+PROSSEGUIR →
+</button>
 
 <div class="scarcity">
 Restam <span id="vagas">18</span> vagas promocionais
@@ -38,8 +50,10 @@ Restam <span id="vagas">18</span> vagas promocionais
 
 </section>
 
+
 <!-- ETAPA 2 -->
 <section id="step2" class="step">
+
 <h2>Escolha o Método de Pagamento</h2>
 
 <div class="countdown">
@@ -61,13 +75,17 @@ Pagar com e-Mola
 
 </section>
 
+
 <!-- ETAPA 3 -->
 <section id="step3" class="step">
+
 <h2>Dados para Pagamento Manual</h2>
 
 <div id="paymentInfo"></div>
 
-<button id="copiarBtn" class="copy-btn">COPIAR NÚMERO</button>
+<button id="copiarBtn" class="copy-btn">
+COPIAR NÚMERO
+</button>
 
 <div id="processingInfo" class="processing hidden">
 Aguardando confirmação manual...
@@ -91,5 +109,6 @@ Avançar
 <div id="notifications"></div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
