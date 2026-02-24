@@ -155,15 +155,15 @@ notif.remove();
 }, 4000);
 }
 
-// ===== TESTEMUNHO FLUTUANTE - APARECE E DESAPARECE =====
+// ===== TESTEMUNHO TOAST - CANTO INFERIOR ESQUERDO =====
 document.addEventListener('DOMContentLoaded', function(){
     
-    let testemunhoEl = document.getElementById('testemunhoFlutuante');
-    let nomeEl = document.getElementById('flutuanteNome');
-    let textoEl = document.getElementById('flutuanteTexto');
-    let tempoEl = document.getElementById('flutuanteTempo');
+    let toastEl = document.getElementById('testemunhoToast');
+    let nomeEl = document.getElementById('toastNome');
+    let textoEl = document.getElementById('toastTexto');
+    let tempoEl = document.getElementById('toastTempo');
     
-    if(!testemunhoEl || !nomeEl || !textoEl || !tempoEl) return;
+    if(!toastEl || !nomeEl || !textoEl || !tempoEl) return;
     
     // Lista de nomes moçambicanos
     let nomesMocambicanos = [
@@ -180,8 +180,7 @@ document.addEventListener('DOMContentLoaded', function(){
         "Quintino Uetela", "Rosita Macuácua", "Salvador Nkosi", "Tânia Tembe",
         "Úrsula Machava", "Valdemiro Guambe", "Wálter Cossa", "Xavier Sitoe",
         "Yara Matsinhe", "Zito Nhaca", "Alda Matsinhe", "Benjamim Cossa",
-        "Carlota Tembe", "David Mabunda", "Eduarda Langa", "Fernando Nhaca",
-        "Glória Macuácua", "Hélio Cossa", "Ilda Matsinhe", "Jorge Tembe"
+        "Carlota Tembe", "David Mabunda", "Eduarda Langa", "Fernando Nhaca"
     ];
     
     // Mensagens com TV Miramar
@@ -239,24 +238,24 @@ document.addEventListener('DOMContentLoaded', function(){
         textoEl.innerText = msg;
         tempoEl.innerText = tempo;
         
-        // Mostra com fade in
-        testemunhoEl.classList.add('visivel');
+        // Mostra com animação
+        toastEl.classList.add('visivel');
         
         // Esconde após 4 segundos
         setTimeout(function(){
-            testemunhoEl.classList.remove('visivel');
+            toastEl.classList.remove('visivel');
         }, 4000);
     }
     
-    // Primeiro testemunho aparece após 3 segundos (mais profissional)
+    // Primeiro testemunho após 3 segundos
     setTimeout(function(){
         mostrarTestemunho();
         
-        // Depois configura intervalo: aparece a cada 12 segundos (4s visível + 8s invisível)
+        // Depois a cada 12 segundos (4s visível + 8s invisível)
         setInterval(function(){
             mostrarTestemunho();
-        }, 12000); // 12 segundos entre cada aparecimento
+        }, 12000);
         
-    }, 3000); // Primeiro aparece após 3 segundos
+    }, 3000);
     
 });
