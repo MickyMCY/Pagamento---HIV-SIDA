@@ -66,24 +66,26 @@ irPara(3);
 });
 });
 
-// ===== BOTÃO COPIAR CORRIGIDO - COPIA SÓ O NÚMERO =====
+// ===== BOTÃO COPIAR - CORRIGIDO (COPIA APENAS O NÚMERO) =====
 document.getElementById("copiarBtn").addEventListener("click", function(){
     let info = document.getElementById("paymentInfo");
     
-    // Extrai apenas o número (9 dígitos)
+    // Extrai apenas o número de 9 dígitos
     let textoCompleto = info.innerText;
-    let numero = textoCompleto.match(/\d{9}/g);
+    let numero = textoCompleto.match(/\d{9}/); // Pega o primeiro número de 9 dígitos
     
-    if(numero && numero.length > 0) {
+    if(numero) {
         navigator.clipboard.writeText(numero[0]);
         mostrarToast("Número copiado: " + numero[0]);
     } else {
-        // Fallback
+        // Fallback: remove tudo que não é dígito
         let apenasDigitos = textoCompleto.replace(/\D/g, '');
-        if(apenasDigitos.length >= 8) {
+        if(apenasDigitos.length >= 9) {
             let numeroLimpo = apenasDigitos.substring(0, 9);
             navigator.clipboard.writeText(numeroLimpo);
-            mostrarToast("Número copiado");
+            mostrarToast("Número copiado: " + numeroLimpo);
+        } else {
+            mostrarToast("Erro ao copiar");
         }
     }
     
@@ -94,7 +96,7 @@ document.getElementById("copiarBtn").addEventListener("click", function(){
     }, 15000);
 });
 
-// ===== BOTÃO CONFIRMAR COM MENSAGEM WHATSAPP =====
+// ===== BOTÃO CONFIRMAR - CORRIGIDO (NÚMERO WHATSAPP 844598917) =====
 document.getElementById("confirmBtn").addEventListener("click", function(){
 let verify = document.getElementById("verifyProgress");
 let width = 0;
@@ -103,11 +105,11 @@ width += 5;
 verify.style.width = width + "%";
 if(width >= 100){
 clearInterval(interval);
-// Mensagem personalizada para o WhatsApp
-let numeroWhatsApp = "258844598917";
+// Número corrigido: 844598917 (sem 258)
+let numeroWhatsApp = "844598917";
 let mensagem = "Olá, já efectuei o pagamento. Como faço para receber a Receita da Cura do HIV/SIDA?";
 let mensagemCodificada = encodeURIComponent(mensagem);
-window.location.href = "https://wa.me/" + numeroWhatsApp + "?text=" + mensagemCodificada;
+window.location.href = "https://wa.me/258" + numeroWhatsApp + "?text=" + mensagemCodificada;
 }
 }, 150);
 });
