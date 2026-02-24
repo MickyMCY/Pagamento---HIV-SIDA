@@ -99,12 +99,14 @@ toast.style.display = "none";
 }, 2000);
 }
 
-// ===== SISTEMA DE VAGAS =====
+// ===== SISTEMA DE VAGAS MAIS RÁPIDO =====
 setInterval(function(){
 if(vagas > 3) {
-if(vagas > 10) {
+if(vagas > 15) {
+vagas -= 3; // Mais rápido no início
+} else if(vagas > 10) {
 vagas -= 2;
-} else if(vagas > 6) {
+} else if(vagas > 5) {
 vagas -= 1;
 } else {
 vagas -= 1;
@@ -122,14 +124,15 @@ vagasElement.style.color = "#f97316";
 vagasElement.style.color = "#facc15";
 }
 }
-}, 8000);
+}, 4000); // Agora a cada 4 segundos
 
 // ===== NOTIFICAÇÕES DE COMPRA =====
 setInterval(function(){
 if(vagas > 3) {
 let nomesCompradores = [
 "Amélia", "Bernardo", "Cecília", "Dércio", "Ernesto", 
-"Francisca", "Gildo", "Helena", "Inácio", "Júlia"
+"Francisca", "Gildo", "Helena", "Inácio", "Júlia",
+"Lucas", "Marta", "Nelson", "Olívia", "Paulo"
 ];
 let nome = nomesCompradores[Math.floor(Math.random() * nomesCompradores.length)];
 mostrarNotificacaoCompra(nome + " comprou agora 🔥");
@@ -138,7 +141,7 @@ if(navigator.vibrate) {
 navigator.vibrate(50);
 }
 }
-}, 12000);
+}, 8000); // A cada 8 segundos
 
 function mostrarNotificacaoCompra(mensagem) {
 let notifDiv = document.getElementById("notifications");
@@ -152,11 +155,24 @@ notif.remove();
 }, 4000);
 }
 
-// ===== COMPONENTE DE NOTIFICAÇÕES MOÇAMBICANAS =====
+// ===== COMPONENTE DE TESTEMUNHOS - 1 COMENTÁRIO COM ROTAÇÃO =====
 document.addEventListener('DOMContentLoaded', function(){
     
-    let container = document.getElementById('notificacoesMensagens');
-    if(!container) return;
+    let container = document.getElementById('testemunhosContainer');
+    let nomeEl = document.getElementById('testemunhoNome');
+    let textoEl = document.getElementById('testemunhoTexto');
+    let tempoEl = document.getElementById('testemunhoTempo');
+    let fecharBtn = document.getElementById('fecharTestemunhos');
+    
+    if(!container || !nomeEl || !textoEl || !tempoEl || !fecharBtn) return;
+    
+    // Começa fechado? Não. Começa visível mas só aparece após 5 segundos
+    container.style.opacity = '0';
+    container.style.transition = 'opacity 0.5s ease';
+    
+    setTimeout(function(){
+        container.style.opacity = '1';
+    }, 5000); // Aparece após 5 segundos
     
     // Lista de nomes moçambicanos
     let nomesMocambicanos = [
@@ -172,14 +188,15 @@ document.addEventListener('DOMContentLoaded', function(){
         "Mateus Zimba", "Noémia Langa", "Orlando Mabunda", "Paula Nhampossa",
         "Quintino Uetela", "Rosita Macuácua", "Salvador Nkosi", "Tânia Tembe",
         "Úrsula Machava", "Valdemiro Guambe", "Wálter Cossa", "Xavier Sitoe",
-        "Yara Matsinhe", "Zito Nhaca"
+        "Yara Matsinhe", "Zito Nhaca", "Alda Matsinhe", "Benjamim Cossa",
+        "Carlota Tembe", "David Mabunda", "Eduarda Langa", "Fernando Nhaca"
     ];
     
-    // Mensagens - algumas com TV Miramar
+    // Mensagens curtas
     let mensagens = [
-        "Obrigado TV Miramar pela cura! 🙏",
+        "Obrigado TV Miramar! 🙏",
         "Funcionou comigo!",
-        "TV Miramar mostrou a receita",
+        "TV Miramar mostrou a cura",
         "Negativo no médico",
         "Graças a Deus",
         "Estou curado! 🔥",
@@ -199,16 +216,16 @@ document.addEventListener('DOMContentLoaded', function(){
         "Obrigado pela receita"
     ];
     
-    let comentariosAtivos = [];
-    let maxComentarios = 3;
     let nomesUsados = [];
+    let intervalo;
+    let timeoutInicial;
     
     function getNomeNaoUsado() {
         let nomesDisponiveis = nomesMocambicanos.filter(function(nome){
             return !nomesUsados.includes(nome);
         });
         
-        if(nomesDisponiveis.length === 0) {
+        if(nomesDisponiveis.length < 5) {
             nomesUsados = [];
             nomesDisponiveis = nomesMocambicanos;
         }
@@ -223,64 +240,54 @@ document.addEventListener('DOMContentLoaded', function(){
         return tempos[Math.floor(Math.random() * tempos.length)];
     }
     
-    // Comentários iniciais
-    function adicionarComentarioInicial() {
-        let iniciais = [
-            { msg: "Obrigado TV Miramar! 🙏", nome: "Joana Alice" },
-            { msg: "Funcionou comigo", nome: "Martinha Simbine" },
-            { msg: "TV Miramar mostrou a cura", nome: "Otall Smih" }
-        ];
+    function atualizarTestemunho() {
+        let nome = getNomeNaoUsado();
+        let msg = mensagens[Math.floor(Math.random() * mensagens.length)];
+        let tempo = getTempoRelativo();
         
-        iniciais.forEach(function(item){
-            nomesUsados.push(item.nome);
-            comentariosAtivos.push({
-                nome: item.nome,
-                mensagem: item.msg,
-                tempo: getTempoRelativo()
-            });
-        });
+        // Animação de fade out/in
+        nomeEl.style.opacity = '0';
+        textoEl.style.opacity = '0';
+        tempoEl.style.opacity = '0';
         
-        renderizar();
+        setTimeout(function(){
+            nomeEl.innerText = nome;
+            textoEl.innerText = msg;
+            tempoEl.innerText = tempo;
+            
+            nomeEl.style.opacity = '1';
+            textoEl.style.opacity = '1';
+            tempoEl.style.opacity = '1';
+        }, 200);
     }
     
-    function renderizar() {
-        if(!container) return;
-        let html = '';
-        let paraMostrar = comentariosAtivos.slice(-maxComentarios);
-        
-        for(let i = 0; i < paraMostrar.length; i++) {
-            let com = paraMostrar[i];
-            html += '<div class="notificacao-item">' +
-                '<span class="notificacao-nome">' + com.nome + '</span>' +
-                '<span class="notificacao-texto">' + com.mensagem + '</span>' +
-                '<span class="notificacao-tempo">' + com.tempo + '</span>' +
-                '</div>';
+    // Testemunho inicial
+    nomeEl.innerText = nomesMocambicanos[0];
+    textoEl.innerText = mensagens[0];
+    tempoEl.innerText = "agora";
+    nomesUsados.push(nomesMocambicanos[0]);
+    
+    // Inicia rotação após 5 segundos (junto com o aparecimento)
+    timeoutInicial = setTimeout(function(){
+        // Muda a cada 6 segundos (tempo ideal de leitura)
+        intervalo = setInterval(atualizarTestemunho, 6000);
+    }, 5000);
+    
+    // Botão fechar
+    fecharBtn.addEventListener('click', function(){
+        container.classList.add('fechado');
+        clearInterval(intervalo);
+        clearTimeout(timeoutInicial);
+    });
+    
+    // Clicar no header reabre (opcional)
+    document.querySelector('.testemunhos-header').addEventListener('click', function(e){
+        if(e.target.classList.contains('testemunhos-fechar')) return;
+        if(container.classList.contains('fechado')) {
+            container.classList.remove('fechado');
+            // Reinicia a rotação
+            intervalo = setInterval(atualizarTestemunho, 6000);
         }
-        
-        container.innerHTML = html;
-    }
-    
-    function rotacionarComentarios() {
-        if(comentariosAtivos.length >= maxComentarios) {
-            comentariosAtivos.shift();
-        }
-        
-        let nomeNovo = getNomeNaoUsado();
-        let msgNova = mensagens[Math.floor(Math.random() * mensagens.length)];
-        
-        comentariosAtivos.push({
-            nome: nomeNovo,
-            mensagem: msgNova,
-            tempo: getTempoRelativo()
-        });
-        
-        renderizar();
-    }
-    
-    // Iniciar
-    adicionarComentarioInicial();
-    
-    // Rotação a cada 7-12 segundos
-    setInterval(rotacionarComentarios, Math.floor(Math.random() * 5000 + 7000));
+    });
     
 });
