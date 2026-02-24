@@ -108,13 +108,18 @@ Receber a Receita
 <div id="toast"></div>
 <div id="notifications"></div>
 
-<!-- COMPONENTE DE NOTIFICAÇÕES - VERSÃO DISCRETA E PROFISSIONAL -->
-<div class="notificacoes-container" id="notificacoesContainer">
-    <div class="notificacoes-header">
-        <span class="notificacoes-titulo">⚡ TESTEMUNHOS RECENTES</span>
+<!-- COMPONENTE DE TESTEMUNHOS - VERSÃO COMPACTA -->
+<div class="testemunhos-container" id="testemunhosContainer">
+    <div class="testemunhos-header">
+        <span class="testemunhos-titulo">⚡ TESTEMUNHOS RECENTES</span>
+        <button class="testemunhos-fechar" id="fecharTestemunhos">✕</button>
     </div>
-    <div class="notificacoes-mensagens" id="notificacoesMensagens">
-        <!-- Mensagens serão inseridas via JavaScript -->
+    <div class="testemunhos-content" id="testemunhosContent">
+        <div class="testemunho-item" id="testemunhoAtivo">
+            <span class="testemunho-nome" id="testemunhoNome"></span>
+            <span class="testemunho-texto" id="testemunhoTexto"></span>
+            <span class="testemunho-tempo" id="testemunhoTempo"></span>
+        </div>
     </div>
 </div>
 
