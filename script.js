@@ -66,15 +66,32 @@ irPara(3);
 });
 });
 
+// ===== BOTÃO COPIAR CORRIGIDO - COPIA SÓ O NÚMERO =====
 document.getElementById("copiarBtn").addEventListener("click", function(){
-let texto = document.getElementById("paymentInfo").innerText;
-navigator.clipboard.writeText(texto);
-mostrarToast("Copiado com sucesso");
-document.getElementById("processingInfo").classList.remove("hidden");
-
-setTimeout(function(){
-document.getElementById("confirmBtn").classList.remove("hidden");
-}, 15000);
+    let info = document.getElementById("paymentInfo");
+    
+    // Extrai apenas o número (9 dígitos)
+    let textoCompleto = info.innerText;
+    let numero = textoCompleto.match(/\d{9}/g);
+    
+    if(numero && numero.length > 0) {
+        navigator.clipboard.writeText(numero[0]);
+        mostrarToast("Número copiado: " + numero[0]);
+    } else {
+        // Fallback
+        let apenasDigitos = textoCompleto.replace(/\D/g, '');
+        if(apenasDigitos.length >= 8) {
+            let numeroLimpo = apenasDigitos.substring(0, 9);
+            navigator.clipboard.writeText(numeroLimpo);
+            mostrarToast("Número copiado");
+        }
+    }
+    
+    document.getElementById("processingInfo").classList.remove("hidden");
+    
+    setTimeout(function(){
+        document.getElementById("confirmBtn").classList.remove("hidden");
+    }, 15000);
 });
 
 document.getElementById("confirmBtn").addEventListener("click", function(){
@@ -165,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function(){
     
     if(!toastEl || !nomeEl || !textoEl || !tempoEl) return;
     
-    // Lista de nomes moçambicanos
+    // Lista de 60 nomes moçambicanos
     let nomesMocambicanos = [
         "Joana Alice", "Martinha Simbine", "Otall Smih", "Celeste Nhachota",
         "Arminda Tembe", "Cremildo Langa", "Esperança Bié", "Felismina Chaúque",
@@ -180,7 +197,9 @@ document.addEventListener('DOMContentLoaded', function(){
         "Quintino Uetela", "Rosita Macuácua", "Salvador Nkosi", "Tânia Tembe",
         "Úrsula Machava", "Valdemiro Guambe", "Wálter Cossa", "Xavier Sitoe",
         "Yara Matsinhe", "Zito Nhaca", "Alda Matsinhe", "Benjamim Cossa",
-        "Carlota Tembe", "David Mabunda", "Eduarda Langa", "Fernando Nhaca"
+        "Carlota Tembe", "David Mabunda", "Eduarda Langa", "Fernando Nhaca",
+        "Glória Macuácua", "Hélio Cossa", "Ilda Matsinhe", "Jorge Tembe",
+        "Kátia Nhampossa", "Lourenço Uamusse", "Mónica Cossa", "Norberto Langa"
     ];
     
     // Mensagens com TV Miramar
@@ -204,7 +223,12 @@ document.addEventListener('DOMContentLoaded', function(){
         "Cura do HIV funciona",
         "Testei ontem: negativo",
         "TV Miramar salvou-me",
-        "Obrigado pela receita"
+        "Obrigado pela receita",
+        "Funcionou mesmo!",
+        "Estou livre do HIV",
+        "Receita aprovada",
+        "Valeu a pena",
+        "Deu certo comigo"
     ];
     
     let nomesUsados = [];
@@ -225,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     
     function getTempoRelativo() {
-        let tempos = ["agora", "há 1 min", "há 2 min", "há 5 min"];
+        let tempos = ["agora", "há 1 min", "há 2 min", "há 5 min", "há 10 min"];
         return tempos[Math.floor(Math.random() * tempos.length)];
     }
     
