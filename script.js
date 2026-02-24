@@ -179,30 +179,24 @@ document.addEventListener('DOMContentLoaded', function(){
     let mensagens = [
         "Obrigado TV Miramar pela cura! 🙏",
         "Funcionou comigo!",
-        "TV Miramar mostrou a receita e curei",
+        "TV Miramar mostrou a receita",
         "Negativo no médico",
-        "Graças a Deus e TV Miramar",
+        "Graças a Deus",
         "Estou curado! 🔥",
-        "Receita da TV Miramar salvou-me",
-        "Funcionou mesmo!",
-        "Obrigado TV Miramar",
+        "Receita funcionou",
         "Cura confirmada",
         "Testei negativo 🙌",
-        "TV Miramar tem a solução",
         "Milagre aconteceu",
         "Já estou curado",
-        "Obrigado pela receita",
         "Funciona 100%",
-        "Vi na TV Miramar e funcionou",
+        "Vi na TV Miramar",
         "Negativo após 30 dias",
         "Receita poderosa",
-        "TV Miramar mostrou e curei",
         "Recomendo a todos",
         "Cura do HIV funciona",
         "Testei ontem: negativo",
-        "Obrigado TV Miramar! 🙏",
-        "Curei graças à TV Miramar",
-        "TV Miramar salvou minha vida"
+        "TV Miramar salvou-me",
+        "Obrigado pela receita"
     ];
     
     let comentariosAtivos = [];
@@ -225,16 +219,16 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     
     function getTempoRelativo() {
-        let tempos = ["agora", "há 1 min", "há 2 min", "há 5 min", "há 10 min", "há 15 min"];
+        let tempos = ["agora", "há 1 min", "há 2 min", "há 5 min"];
         return tempos[Math.floor(Math.random() * tempos.length)];
     }
     
     // Comentários iniciais
     function adicionarComentarioInicial() {
         let iniciais = [
-            { msg: "Obrigado TV Miramar pela cura! 🙏", nome: "Joana Alice" },
-            { msg: "Funcionou comigo, testei negativo", nome: "Martinha Simbine" },
-            { msg: "TV Miramar mostrou e curei o HIV", nome: "Otall Smih" }
+            { msg: "Obrigado TV Miramar! 🙏", nome: "Joana Alice" },
+            { msg: "Funcionou comigo", nome: "Martinha Simbine" },
+            { msg: "TV Miramar mostrou a cura", nome: "Otall Smih" }
         ];
         
         iniciais.forEach(function(item){
@@ -257,9 +251,9 @@ document.addEventListener('DOMContentLoaded', function(){
         for(let i = 0; i < paraMostrar.length; i++) {
             let com = paraMostrar[i];
             html += '<div class="notificacao-item">' +
-                '<div class="notificacao-nome">' + com.nome + '</div>' +
-                '<div class="notificacao-texto">' + com.mensagem + '</div>' +
-                '<div class="notificacao-tempo">' + com.tempo + '</div>' +
+                '<span class="notificacao-nome">' + com.nome + '</span>' +
+                '<span class="notificacao-texto">' + com.mensagem + '</span>' +
+                '<span class="notificacao-tempo">' + com.tempo + '</span>' +
                 '</div>';
         }
         
