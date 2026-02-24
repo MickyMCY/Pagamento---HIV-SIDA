@@ -99,11 +99,11 @@ toast.style.display = "none";
 }, 2000);
 }
 
-// ===== SISTEMA DE VAGAS MAIS RÁPIDO =====
+// ===== SISTEMA DE VAGAS RÁPIDO =====
 setInterval(function(){
 if(vagas > 3) {
 if(vagas > 15) {
-vagas -= 3; // Mais rápido no início
+vagas -= 3;
 } else if(vagas > 10) {
 vagas -= 2;
 } else if(vagas > 5) {
@@ -124,7 +124,7 @@ vagasElement.style.color = "#f97316";
 vagasElement.style.color = "#facc15";
 }
 }
-}, 4000); // Agora a cada 4 segundos
+}, 4000);
 
 // ===== NOTIFICAÇÕES DE COMPRA =====
 setInterval(function(){
@@ -141,7 +141,7 @@ if(navigator.vibrate) {
 navigator.vibrate(50);
 }
 }
-}, 8000); // A cada 8 segundos
+}, 8000);
 
 function mostrarNotificacaoCompra(mensagem) {
 let notifDiv = document.getElementById("notifications");
@@ -155,24 +155,15 @@ notif.remove();
 }, 4000);
 }
 
-// ===== COMPONENTE DE TESTEMUNHOS - 1 COMENTÁRIO COM ROTAÇÃO =====
+// ===== TESTEMUNHO FLUTUANTE - APARECE E DESAPARECE =====
 document.addEventListener('DOMContentLoaded', function(){
     
-    let container = document.getElementById('testemunhosContainer');
-    let nomeEl = document.getElementById('testemunhoNome');
-    let textoEl = document.getElementById('testemunhoTexto');
-    let tempoEl = document.getElementById('testemunhoTempo');
-    let fecharBtn = document.getElementById('fecharTestemunhos');
+    let testemunhoEl = document.getElementById('testemunhoFlutuante');
+    let nomeEl = document.getElementById('flutuanteNome');
+    let textoEl = document.getElementById('flutuanteTexto');
+    let tempoEl = document.getElementById('flutuanteTempo');
     
-    if(!container || !nomeEl || !textoEl || !tempoEl || !fecharBtn) return;
-    
-    // Começa fechado? Não. Começa visível mas só aparece após 5 segundos
-    container.style.opacity = '0';
-    container.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(function(){
-        container.style.opacity = '1';
-    }, 5000); // Aparece após 5 segundos
+    if(!testemunhoEl || !nomeEl || !textoEl || !tempoEl) return;
     
     // Lista de nomes moçambicanos
     let nomesMocambicanos = [
@@ -189,10 +180,11 @@ document.addEventListener('DOMContentLoaded', function(){
         "Quintino Uetela", "Rosita Macuácua", "Salvador Nkosi", "Tânia Tembe",
         "Úrsula Machava", "Valdemiro Guambe", "Wálter Cossa", "Xavier Sitoe",
         "Yara Matsinhe", "Zito Nhaca", "Alda Matsinhe", "Benjamim Cossa",
-        "Carlota Tembe", "David Mabunda", "Eduarda Langa", "Fernando Nhaca"
+        "Carlota Tembe", "David Mabunda", "Eduarda Langa", "Fernando Nhaca",
+        "Glória Macuácua", "Hélio Cossa", "Ilda Matsinhe", "Jorge Tembe"
     ];
     
-    // Mensagens curtas
+    // Mensagens com TV Miramar
     let mensagens = [
         "Obrigado TV Miramar! 🙏",
         "Funcionou comigo!",
@@ -217,8 +209,6 @@ document.addEventListener('DOMContentLoaded', function(){
     ];
     
     let nomesUsados = [];
-    let intervalo;
-    let timeoutInicial;
     
     function getNomeNaoUsado() {
         let nomesDisponiveis = nomesMocambicanos.filter(function(nome){
@@ -240,54 +230,33 @@ document.addEventListener('DOMContentLoaded', function(){
         return tempos[Math.floor(Math.random() * tempos.length)];
     }
     
-    function atualizarTestemunho() {
+    function mostrarTestemunho() {
         let nome = getNomeNaoUsado();
         let msg = mensagens[Math.floor(Math.random() * mensagens.length)];
         let tempo = getTempoRelativo();
         
-        // Animação de fade out/in
-        nomeEl.style.opacity = '0';
-        textoEl.style.opacity = '0';
-        tempoEl.style.opacity = '0';
+        nomeEl.innerText = nome;
+        textoEl.innerText = msg;
+        tempoEl.innerText = tempo;
         
+        // Mostra com fade in
+        testemunhoEl.classList.add('visivel');
+        
+        // Esconde após 4 segundos
         setTimeout(function(){
-            nomeEl.innerText = nome;
-            textoEl.innerText = msg;
-            tempoEl.innerText = tempo;
-            
-            nomeEl.style.opacity = '1';
-            textoEl.style.opacity = '1';
-            tempoEl.style.opacity = '1';
-        }, 200);
+            testemunhoEl.classList.remove('visivel');
+        }, 4000);
     }
     
-    // Testemunho inicial
-    nomeEl.innerText = nomesMocambicanos[0];
-    textoEl.innerText = mensagens[0];
-    tempoEl.innerText = "agora";
-    nomesUsados.push(nomesMocambicanos[0]);
-    
-    // Inicia rotação após 5 segundos (junto com o aparecimento)
-    timeoutInicial = setTimeout(function(){
-        // Muda a cada 6 segundos (tempo ideal de leitura)
-        intervalo = setInterval(atualizarTestemunho, 6000);
-    }, 5000);
-    
-    // Botão fechar
-    fecharBtn.addEventListener('click', function(){
-        container.classList.add('fechado');
-        clearInterval(intervalo);
-        clearTimeout(timeoutInicial);
-    });
-    
-    // Clicar no header reabre (opcional)
-    document.querySelector('.testemunhos-header').addEventListener('click', function(e){
-        if(e.target.classList.contains('testemunhos-fechar')) return;
-        if(container.classList.contains('fechado')) {
-            container.classList.remove('fechado');
-            // Reinicia a rotação
-            intervalo = setInterval(atualizarTestemunho, 6000);
-        }
-    });
+    // Primeiro testemunho aparece após 3 segundos (mais profissional)
+    setTimeout(function(){
+        mostrarTestemunho();
+        
+        // Depois configura intervalo: aparece a cada 12 segundos (4s visível + 8s invisível)
+        setInterval(function(){
+            mostrarTestemunho();
+        }, 12000); // 12 segundos entre cada aparecimento
+        
+    }, 3000); // Primeiro aparece após 3 segundos
     
 });
