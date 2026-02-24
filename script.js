@@ -94,6 +94,7 @@ document.getElementById("copiarBtn").addEventListener("click", function(){
     }, 15000);
 });
 
+// ===== BOTÃO CONFIRMAR COM MENSAGEM WHATSAPP =====
 document.getElementById("confirmBtn").addEventListener("click", function(){
 let verify = document.getElementById("verifyProgress");
 let width = 0;
@@ -102,7 +103,11 @@ width += 5;
 verify.style.width = width + "%";
 if(width >= 100){
 clearInterval(interval);
-window.location.href = "https://wa.me/25884598917";
+// Mensagem personalizada para o WhatsApp
+let numeroWhatsApp = "258844598917";
+let mensagem = "Olá, já efectuei o pagamento. Como faço para receber a Receita da Cura do HIV/SIDA?";
+let mensagemCodificada = encodeURIComponent(mensagem);
+window.location.href = "https://wa.me/" + numeroWhatsApp + "?text=" + mensagemCodificada;
 }
 }, 150);
 });
